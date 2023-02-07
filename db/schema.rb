@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_07_084754) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_07_085841) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -55,6 +55,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_07_084754) do
     t.index ["company_id"], name: "index_rosters_on_company_id"
   end
 
+  create_table "shifts", force: :cascade do |t|
+    t.time "start_time"
+    t.time "end_time"
+    t.bigint "user_id", null: false
+    t.bigint "roster_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["roster_id"], name: "index_shifts_on_roster_id"
+    t.index ["user_id"], name: "index_shifts_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email", default: "", null: false
@@ -72,5 +83,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_07_084754) do
   end
 
   add_foreign_key "rosters", "companies"
+  add_foreign_key "shifts", "rosters"
+  add_foreign_key "shifts", "users"
   add_foreign_key "users", "companies"
 end
