@@ -34,6 +34,8 @@ gem 'devise'
 
 gem 'activeadmin', '~> 2.0'
 
+gem 'haml'
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
