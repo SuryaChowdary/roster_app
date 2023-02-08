@@ -1,0 +1,29 @@
+<div style="font-family: 'Times New Roman', Times, serif; padding-left: 400px;">
+  <% if current_user %>
+    <h1><%= current_user.name.upcase %>'s Dashboard</h1>
+      <h2><strong>Hello <%= current_user.name.upcase %></strong></h2>
+      <h3><strong>Your designation is <%= current_user.role %> at <%= current_user.company.name%></strong></h3>
+      <% if current_user.role == "Manager" %>
+        <h1>Manager DashBoard</h1>
+        <h2>Please access through below links for creating and editing rosters and shifts <h2>
+        <h3><strong><%= link_to "View Rosters", rosters_path %></strong></h3>
+        <h3><strong><%= link_to "view Shifts", shifts_path %></strong></h3>
+        <h3><strong><%= link_to " Admin Login", "/admin" %></strong></h3>
+        <h2><%= link_to "Sign out", destroy_user_session_path,data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %></h2>
+      <% elsif current_user.role == "Technician" %>
+        <h2><strong> Your Shifts are scheduled as follows</strong> </h2>
+        <% current_user.shifts.each do |shift| %>
+        <h2 class="card-subtitle mb-2 text-muted"> Start Time: <%= shift.start_time %>
+      <h2 class="card-subtitle mb-2 text-muted"> End Time : <%= shift.end_time %>
+        <% end %>
+      <h2>
+      <h3>You are not authorized to create any rosters and shifts. Please login as manager </h3>
+      <h2><%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></h2>
+    <% end %>
+  <% else %>
+  <h2><strong> Welcome to Roster Application </strong><h2>
+    <h2> Please login to continue </h2>
+    <h2><%= link_to " Login", new_user_session_path %></h2>
+    <h2><strong> For new User signup please contact <%= link_to "Admin", "/admin" %></strong></h2>
+  <% end %>
+</div>

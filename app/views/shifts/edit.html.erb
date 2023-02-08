@@ -1,0 +1,34 @@
+<h1> Edit Shift Details </h1>
+<h2><%= form_for(@shift) do |f| %>
+  <% if @shift.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@shift.errors.count, "error") %> prohibited this shift from being saved:</h2>
+
+      <ul>
+      <% @shift.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :start_time %><br>
+    <%= f.time_field :start_time %>
+  </div>
+  <div class="field">
+    <%= f.label :end_time %><br>
+    <%= f.time_field :end_time %>
+  </div>
+  <div class="field">
+    <%= f.label :roster_id %><br>
+    <%= f.collection_select :roster_id, Roster.all, :id, :roster_date,  prompt: "select roster" %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.select :user_id, [['Select a Technician', '']] + User.where(role: "Technician").map {|u| [u.name, u.id]} %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %></h2>

@@ -1,0 +1,30 @@
+<h1>Shifts</h1>
+<h2><table class="table">
+  <thead>
+    <tr>
+      <th>Start Time</th>
+      <th>End Time </th>
+      <th>Roster Date</th>
+      <th>Shift User</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @shifts.each do |shift| %>
+      <tr>
+        <td><%= shift.start_time %></td>
+        <td><%= shift.end_time %></td>
+        <td><%= shift.roster.roster_date %></td>
+        <td><%= shift.user.name %></td>
+        <td>
+          <%= link_to "Show", shift %>
+          <%= link_to "Edit", edit_shift_path(shift) %>
+          <%= link_to "Destroy", shift,data: {turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table></h2>
+
+<h3><%= link_to "New Shift", new_shift_path %></h3>
+<h3><%= link_to "Home", root_path %></h3>

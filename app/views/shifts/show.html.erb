@@ -1,0 +1,13 @@
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-header"> 
+      <h1 class="card-title">Shift for <%= @shift.user.name %></h1>
+    </div>
+      <h2 class="card-subtitle mb-2 text-muted"> Start Time: <%= @shift.start_time %>
+      <h2 class="card-subtitle mb-2 text-muted"> End Time : <%= @shift.end_time %>
+      <h2 class="card-subtitle mb-2 text-muted"> Roster Date: <%= @shift.roster.roster_date %>
+    <div class="card-footer text-muted">
+      <%= link_to 'Back', shifts_path, class: 'btn btn-secondary' %>
+    </div>
+  </div>
+</div>

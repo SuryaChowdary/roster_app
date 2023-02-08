@@ -1,0 +1,28 @@
+<h1>Rosters</h1>
+<h2><table>
+  <thead>
+    <tr>
+      <th>Roster Date</th>
+      <th>Company Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @rosters.each do |roster| %>
+      <tr>
+        <td><%= roster.roster_date %></td>
+       <td><%= roster.company.name %></td>
+        <td>
+          <%= link_to "Show", roster %>
+          <%= link_to "Edit", edit_roster_path(roster) %>
+          <%= link_to "Destroy", roster, data: {turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table></h2>
+
+<br>
+
+<h3><%= link_to "New Roster", new_roster_path %></h3>
+<h3><%= link_to "Home", root_path %></h3>
