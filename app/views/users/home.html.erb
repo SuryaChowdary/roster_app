@@ -2,19 +2,20 @@
   <% if current_user %>
     <h1><%= current_user.name.upcase %>'s Dashboard</h1>
       <h2><strong>Hello <%= current_user.name.upcase %></strong></h2>
-      <h3><strong>Your designation is <%= current_user.role %> at <%= current_user.company.name%></strong></h3>
-      <% if current_user.role == "Manager" %>
+      <h3><strong>Your designation is <%= current_user.role.name %> at <%= current_user.company.name%></strong></h3>
+      <% if current_user.role.name == "Manager" %>
         <h1>Manager DashBoard</h1>
         <h2>Please access through below links for creating and editing rosters and shifts <h2>
         <h3><strong><%= link_to "View Rosters", rosters_path %></strong></h3>
         <h3><strong><%= link_to "view Shifts", shifts_path %></strong></h3>
         <h3><strong><%= link_to " Admin Login", "/admin" %></strong></h3>
         <h2><%= link_to "Sign out", destroy_user_session_path,data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %></h2>
-      <% elsif current_user.role == "Technician" %>
+      <% elsif current_user.role.name !="Manager" %>
         <h2><strong> Your Shifts are scheduled as follows</strong> </h2>
         <% current_user.shifts.each do |shift| %>
-        <h2 class="card-subtitle mb-2 text-muted"> Start Time: <%= shift.start_time %>
-      <h2 class="card-subtitle mb-2 text-muted"> End Time : <%= shift.end_time %>
+        <h2 class="card-subtitle mb-2 text-muted"> Roster Date : <%= shift.roster.roster_date %>
+        <h2 class="card-subtitle mb-2 text-muted"> Start Time: <%= shift.start_time.strftime("%I:%M %p") %>
+        <h2 class="card-subtitle mb-2 text-muted"> End Time : <%= shift.end_time.strftime("%I:%M %p") %>
         <% end %>
       <h2>
       <h3>You are not authorized to create any rosters and shifts. Please login as manager </h3>

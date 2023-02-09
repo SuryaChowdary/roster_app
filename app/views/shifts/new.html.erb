@@ -26,7 +26,7 @@
   </div>
   <div class="field">
     <%= f.label :user_id %><br>
-    <%= f.select :user_id, [['Select a Technician', '']] + User.where(role: "Technician").map {|u| [u.name, u.id]} %>
+    <%= f.collection_select :user_id, User.where.not(role: Role.find_by(name: "Manager")), :id, :name, prompt: "Select a User" %>
   </div>
   <div class="actions">
     <%= f.submit %>

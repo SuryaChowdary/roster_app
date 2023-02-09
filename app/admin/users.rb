@@ -6,7 +6,7 @@ ActiveAdmin.register User do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :email, :name, :password,:password_confirmation, :role, :company_id
+  permit_params :email, :name, :password,:password_confirmation, :role_id, :company_id
   #
   # or
   #
@@ -44,7 +44,7 @@ ActiveAdmin.register User do
         f.input :name
         f.input :password
         f.input :password_confirmation
-        f.input :role, as: :select, collection: [['Select a Role', '']] + ['Manager', 'Technician']
+        f.input :role_id, as: :select, collection: [['Select a Role', '']] + Role.all.map{|r| [r.name, r.id]}
         f.input :company_id, as: :select, collection: [['Select a Company', '']] + Company.all.map{|c| [c.name, c.id]}
       end
       f.actions
@@ -53,7 +53,7 @@ ActiveAdmin.register User do
     # Filters for searching and filtering Users
     filter :email
     filter :name
-    filter :role, as: :select, collection: ['Manager', 'Technician']
+    filter :role_id, as: :select, collection: [['Select a Role', '']] + Role.all.map{|r| [r.name, r.id]}
     filter :company_id, as: :select, collection: [['Select a Company', '']] + Company.all.map{|c| [c.name, c.id]}
   
 end

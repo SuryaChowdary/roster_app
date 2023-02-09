@@ -50,7 +50,7 @@ class ShiftsController < ApplicationController
     end
 
     def require_manager
-      unless current_user.role == "Manager"
+      unless current_user.role.name == "Manager"
         redirect_to root_path, notice: "You are not authorized to access this page."
       end
     end
